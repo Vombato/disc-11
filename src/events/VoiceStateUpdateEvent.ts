@@ -88,13 +88,13 @@ export class VoiceStateUpdateEvent extends BaseEvent {
     }
 
     private timeout(vcMembers: VoiceChannel["members"], queue: ServerQueue, state: VoiceState): void {
-        if (vcMembers.size >= 0) return;
+        if (vcMembers.size !== 0) return;
 
         clearTimeout(queue.timeout!);
         state.guild.queue!.timeout = null;
         queue.player?.pause();
 
-        const timeout = 60000;
+        const timeout = 604800000;
         const duration = formatMS(timeout);
 
         queue.lastVSUpdateMsg = null;
